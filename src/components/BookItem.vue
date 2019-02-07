@@ -3,7 +3,7 @@
     <div class="book-item-left">
       <input type="checkbox" v-model="status" @change="doneEdit">
       <div v-if="!editing" @dblclick="editBook" class="book-item-label">{{title}}</div>
-      <input v-else class="book-item-edit" type="text" v-model="title" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.up="cancelEdit" v-focus>
+      <input v-else class="book-item-edit" type="text" v-model="title" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus>
       <span v-if="status" class="available">Available</span>
       <span v-else class="not-available">Not Available</span>
     </div>
@@ -40,7 +40,7 @@
       }
     },
     watch: {
-      checkAll() {
+      checkAll: function() {
         this.status = this.checkAll ? true : this.book.status
       }
     },
@@ -52,14 +52,14 @@
       }
     },
     methods: {
-      removeBook(id) {
+      removeBook: function(id) {
         this.$emit('removedBook',id)
       },
-      editBook() {
+      editBook: function() {
         this.beforeEditCache = this.title;
         this.editing = true;
       },
-      doneEdit() {
+      doneEdit: function() {
         if (this.title.trim() == '') {
           this.title = this.beforeEditCache
         }
@@ -71,7 +71,7 @@
           'editing': this.editing,
         })
       },
-      cancelEdit() {
+      cancelEdit: function() {
         this.title = this.beforeEditCache
         this.editing = false
       },

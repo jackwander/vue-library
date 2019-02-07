@@ -8,7 +8,7 @@
 
     <div class="extra-container">
       <div>
-        <label><input type="checkbox" @change="checkAllBooks()" :checked="anyAvailable">Check All</label>
+        <label><input type="checkbox" @change="checkAllBooks" :checked="anyAvailable">Check All</label>
       </div>
       <div>{{available}} available book/s</div>
     </div>
@@ -96,17 +96,17 @@ export default {
       this.newBook = ''
       this.idForBook++
     },
-    removeBook(id) {
+    removeBook: function(id) {
       const index = this.books.findIndex((item) => item.id == id)
       this.books.splice(index,1)
     },
-    checkAllBooks() {
-      this.books.forEach((book) => book.status = event.target.checked)
+    checkAllBooks: function(e) {
+      this.books.forEach((book) => book.status = e.target.checked)
     },
-    clearUnavailable() {
+    clearUnavailable: function() {
       this.books = this.books.filter(book => book.status)
     },
-    finishedEdit(data) {
+    finishedEdit: function(data) {
       const index = this.books.findIndex((item) => item.id == data.id)
       this.books.splice(index, 1, data)
     }
